@@ -150,19 +150,21 @@ bot.on('message', function (event) {
                // event.source.groupId == acgmAzurGroup 		
              isContainsString('髒髒十連') 
                 ) {
+		    var totalURL = ''
 		    for(var i = 0; i < 10; ++i) {
                       pixiv
 			  .fetch(pixivImages[getRandomWithArray(pixivImages)].replace('\r', ''))
                           .then(value => {
                               console.log(value); // {name: 'xxx.png'}	
-                              var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
-                              return event.reply({
-                                  type: 'image',
-                                  originalContentUrl: url,
-                                  previewImageUrl: url
-                              });
+                              var url = 'https://linebotbl.herokuapp.com/images/' + value.name + '\n';
+			      totalURL.push(url)
                           });
 		    }
+		    return event.reply({
+                                  type: 'image',
+                                  originalContentUrl: totalURL,
+                                  previewImageUrl: totalURL
+                              });
                 }
 
             if (isContainsString('update')) {
